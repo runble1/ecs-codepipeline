@@ -1,0 +1,32 @@
+[
+  {
+    "name": "nextjs-github",
+    "image": "657885203613.dkr.ecr.ap-northeast-1.amazonaws.com/next-docker:latest",
+    "essential": true,
+    "cpu": 10,
+    "memory": 128,
+    "portMappings": [
+      {
+        "containerPort": 3000
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/nextjs-github",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "healthcheck": {
+      "command": [
+        "CMD-SHELL",
+        "wget -q -O - http://localhost:3000/api/healthcheck|| exit 1"
+      ],
+      "interval": 5,
+      "retries": 3,
+      "startPeriod": 60,
+      "timeout": 5
+    }
+  }
+]

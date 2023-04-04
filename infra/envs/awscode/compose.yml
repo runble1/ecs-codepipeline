@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  terraform:
+    image: hashicorp/terraform:1.3.8
+    volumes:
+      - ../../:/infra
+    working_dir: /infra/envs/dev
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - TF_CLI_ARGS_plan="--parallelism=20"
+      - TF_CLI_ARGS_apply="--parallelism=20"
+      - TF_CLI_ARGS_destroy="--parallelism=20"
+
